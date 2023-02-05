@@ -6,8 +6,8 @@ export interface IUserMatchup extends IDataModel {
     round: number;
     rank: number;
     winnerId: number | null;
-    creature1Id: number | null;
-    creature2Id: number | null;
+    creature1Id: number | undefined;
+    creature2Id: number | undefined;
     bracketId: number;
     creature1: ICreature;
     creature2: ICreature;

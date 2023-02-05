@@ -1,15 +1,15 @@
 import { Inbox } from '@mui/icons-material';
 import { Paper, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
-import { IMatchup } from '../../interfaces/models/matchup';
+import { IUserMatchup } from '../../interfaces/models/userMatchup';
 import styles from './matchup.module.css';
 
-interface MatchupProps {
-  matchup: IMatchup;
+interface UserMatchupProps {
+  matchup: IUserMatchup;
   count: number;
 }
 
-const Matchup: FC<MatchupProps> = (props) => {
+const UserMatchup: FC<UserMatchupProps> = (props) => {
   const [margin, setMargin] = useState(0);
   const [winnerId, setWinnerId] = useState<number | undefined>(undefined);
   const HEIGHT = 88;
@@ -23,25 +23,25 @@ const Matchup: FC<MatchupProps> = (props) => {
   <List dense component="nav">
     <ListItemButton
       selected={props.matchup.winnerId === props.matchup.creature1Id}
-      // onClick={(e) => setWinnerId(props.matchup.creature1Id)}
+      onClick={(e) => setWinnerId(props.matchup.creature1Id)}
     >
       <ListItemIcon>
         <Inbox />
       </ListItemIcon>
-      <ListItemText primary={props.matchup.creature1.name} />
+      <ListItemText primary={props.matchup.creature1?.name ?? 'asdf'} />
     </ListItemButton>
 
     <ListItemButton
       selected={props.matchup.winnerId === props.matchup.creature2Id}
-      // onClick={(e) => setWinnerId(props.matchup.creature2Id)}
+      onClick={(e) => setWinnerId(props.matchup.creature2Id)}
     >
       <ListItemIcon>
         <Inbox />
       </ListItemIcon>
-      <ListItemText primary={props.matchup.creature2.name} />
+      <ListItemText primary={props.matchup.creature2?.name ?? 'asdf'} />
     </ListItemButton>
   </List>
 </Paper>
 };
 
-export default Matchup;
+export default UserMatchup;

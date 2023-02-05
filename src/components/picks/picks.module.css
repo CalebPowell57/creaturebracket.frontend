@@ -1,0 +1,9 @@
+.main {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.newCampaignButton {
+    margin-top: auto;
+}

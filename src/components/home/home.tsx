@@ -13,8 +13,8 @@ const Home: FC<HomeProps> = () => {
   const { bracket } = useAppSelector(BracketState);
 
   return <>{bracket &&
-    <div className={styles.main}>
-      <Stack spacing={2} style={{display: 'flex', alignItems: 'center'}} direction='row'>
+    <div className={styles.main} style={{overflowY: 'auto'}}>
+      <Stack spacing={4} style={{display: 'flex'}} direction='row'>
         <Round matchups={bracket.matchups.filter((m) => m.round === 1)}/>
         <Round matchups={bracket.matchups.filter((m) => m.round === 2)}/>
         <Round matchups={bracket.matchups.filter((m) => m.round === 3)}/>

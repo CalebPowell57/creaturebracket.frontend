@@ -8,9 +8,9 @@ interface RoundProps {
 }
 
 const Round: FC<RoundProps> = (props) => {
-  return <Stack spacing={2}>
+  return <Stack>
     {props.matchups.map((m) => 
-      <Matchup matchup={m} key={m.id}/>
+      <Matchup matchup={m} key={m.id} count={props.matchups.length}/>
     )}
 </Stack>
 }
