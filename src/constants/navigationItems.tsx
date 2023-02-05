@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { Leaderboard, Rule } from "@mui/icons-material";
 import Picks from "../components/picks/picks";
 import Standings from "../components/standings/standings";
+import NewBracket from "../components/newBracket/newBracket";
 
 export const navigationItems: INavigationItem[] = [
 	{
@@ -27,6 +28,10 @@ export const navigationItems: INavigationItem[] = [
 		node: <Standings/>,
 		icon: <Leaderboard/>,
 		bottomNavigation: true,
+	},
+	{
+		path: '/new-bracket',
+		node: <NewBracket/>,
 	},
 	{
 		path: '/',
