@@ -28,7 +28,7 @@ const Matchup: FC<MatchupProps> = (props) => {
       <ListItemIcon>
         <Inbox />
       </ListItemIcon>
-      <ListItemText primary={props.matchup.creature1.name} />
+      <ListItemText primary={props.matchup.creature1?.name ?? 'Unselected'} />
     </ListItemButton>
 
     <ListItemButton
@@ -38,7 +38,7 @@ const Matchup: FC<MatchupProps> = (props) => {
       <ListItemIcon>
         <Inbox />
       </ListItemIcon>
-      <ListItemText primary={props.matchup.creature2.name} />
+      <ListItemText primary={props.matchup.creature2?.name ?? 'Unselected'} />
     </ListItemButton>
   </List>
 </Paper>

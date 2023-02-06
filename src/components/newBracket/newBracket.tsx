@@ -1,5 +1,5 @@
-import { Clear, Save } from '@mui/icons-material';
-import { Stack, TextField, MenuItem, Select, Button } from '@mui/material';
+import { Clear, Label, Save } from '@mui/icons-material';
+import { Stack, TextField, MenuItem, Select, Button, FormLabel, FormControl, InputLabel } from '@mui/material';
 import axios from 'axios';
 import React, { FC, useState } from 'react';
 import { IBracketDto } from '../../interfaces/dto/post/bracketDto';
@@ -13,13 +13,16 @@ const NewBracket: FC<MatchupProps> = (props) => {
   });
 
   return <Stack style={{height: '100%'}} spacing={2}>
-    <TextField value={bracket.name} label='Name'/>
-    <Select label='Creature Count' value={bracket.creatureCount} onChange={(e) => setBracket({...bracket, creatureCount: e.
-      target.value as number})}>
-      <MenuItem value={64}>64</MenuItem>
-      <MenuItem value={32}>32</MenuItem>
-      <MenuItem value={16}>16</MenuItem>
-    </Select>
+    <TextField onChange={(e) => setBracket({...bracket, name: e.target.value})} value={bracket.name} label='Name' style={{marginTop: '1em'}}/>
+    <FormControl>
+      <InputLabel>Creature Count</InputLabel>
+      <Select label='Creature Count' value={bracket.creatureCount} onChange={(e) => setBracket({...bracket, creatureCount: e.
+        target.value as number})}>
+        <MenuItem value={64}>64</MenuItem>
+        <MenuItem value={32}>32</MenuItem>
+        <MenuItem value={16}>16</MenuItem>
+      </Select>
+    </FormControl>
 
     <div style={{height: '100%'}}/>
 
