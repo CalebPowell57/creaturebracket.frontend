@@ -2,10 +2,11 @@ import Home from "../components/home/home";
 import { INavigationItem } from "../interfaces/navigationItem";
 import HomeIcon from '@mui/icons-material/Home';
 import { Navigate } from "react-router-dom";
-import { Leaderboard, Rule } from "@mui/icons-material";
+import { Handyman, Leaderboard, PersonAdd, Rule } from "@mui/icons-material";
 import Picks from "../components/picks/picks";
 import Standings from "../components/standings/standings";
-import NewBracket from "../components/newBracket/newBracket";
+import CreatureSubmissions from "../components/creatureSubmissions/creatureSubmissions";
+import Tools from "../components/tools/tools";
 
 export const navigationItems: INavigationItem[] = [
 	{
@@ -13,25 +14,35 @@ export const navigationItems: INavigationItem[] = [
 		title: 'Home',
 		node: <Home/>,
 		icon: <HomeIcon/>,
-		bottomNavigation: true,
+		hasNavigation: true,
+	},
+	{
+		path: '/creature-submissions',
+		title: 'Creature Submissions',
+		node: <CreatureSubmissions/>,
+		icon: <PersonAdd/>,
+		hasNavigation: true,
 	},
 	{
 		path: '/picks',
 		title: 'Picks',
 		node: <Picks/>,
 		icon: <Rule/>,
-		bottomNavigation: true,
+		hasNavigation: true,
 	},
 	{
 		path: '/standings',
 		title: 'Standings',
 		node: <Standings/>,
 		icon: <Leaderboard/>,
-		bottomNavigation: true,
+		hasNavigation: true,
 	},
 	{
-		path: '/new-bracket',
-		node: <NewBracket/>,
+		path: '/tools',
+		title: 'Tools',
+		node: <Tools/>,
+		icon: <Handyman/>,
+		hasNavigation: true,
 	},
 	{
 		path: '/',

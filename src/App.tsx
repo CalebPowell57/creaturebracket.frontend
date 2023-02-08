@@ -7,7 +7,7 @@ import Auth from './components/auth/auth';
 import TopBar from './components/topBar/topBar';
 import BottomBar from './components/bottomBar/bottomBar';
 import axios from 'axios';
-import { setBracket } from './state/slices/bracket';
+import { setBrackets } from './state/slices/brackets';
 import { useAppDispatch } from './state/hooks';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     axios.get('bracket').then((r) => {
-      dispatch(setBracket(r.data));
+      dispatch(setBrackets(r.data));
     });
   }, [])
 

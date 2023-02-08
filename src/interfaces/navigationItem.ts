@@ -4,5 +4,5 @@ import { IOption } from "./option";
 export interface INavigationItem extends IOption {
     path: string;
     node: ReactNode;
-    bottomNavigation?: boolean;
+    hasNavigation?: boolean;
 }

@@ -18,19 +18,39 @@ const Picks: FC<PicksProps> = () => {
       axios.get(`userMatchup/calebpowell57/${bracket.id}`)
       .then((r) => {
         setMatchups(r.data);
-        console.log(r.data);
       })
     }
   }, [bracket]);
 
+  function handleWinnerSelected(newWinnerId: number, matchupRound: number, matchupRank: number) {
+    const matchup = matchups.find((m) => m.round === matchupRound && m.rank === matchupRank);
+    const round = matchup!.round + 1;
+    const rank = Math.ceil(matchup!.rank / 2);
+    const isFirst = (matchup!.rank / 2) % 1 !== 0;
+
+    const newMatchup = matchups.find((m) => m.round === round && m.rank === rank) as IUserMatchup;
+
+    if (isFirst) {
+      newMatchup!.creature1 = newWinnerId === matchup!.creature1Id ? matchup!.creature1 : matchup!.creature2;
+      newMatchup!.creature1Id = newWinnerId === matchup!.creature1Id ? matchup!.creature1Id : matchup!.creature2Id;
+    } else {
+      newMatchup!.creature2 = newWinnerId === matchup!.creature1Id ? matchup!.creature1 : matchup!.creature2;
+      newMatchup!.creature2Id = newWinnerId === matchup!.creature1Id ? matchup!.creature1Id : matchup!.creature2Id;
+    }
+
+    const newMatchups = matchups.map((m) => m.round === round && m.rank === rank ? newMatchup : m);
+
+    setMatchups(newMatchups);
+  }
+
   return <>{bracket &&
     <div style={{display: 'flex', height: '100%', flexDirection: 'column', overflowY: 'auto'}}>
       <Stack spacing={4} style={{display: 'flex'}} direction='row'>
-        <UserRound matchups={matchups.filter((m) => m.round === 1)}/>
-        <UserRound matchups={matchups.filter((m) => m.round === 2)}/>
-        <UserRound matchups={matchups.filter((m) => m.round === 3)}/>
-        <UserRound matchups={matchups.filter((m) => m.round === 4)}/>
-        <UserRound matchups={matchups.filter((m) => m.round === 5)}/>
+        <UserRound matchups={matchups.filter((m) => m.round === 1)} onWinnerSelected={handleWinnerSelected}/>
+        <UserRound matchups={matchups.filter((m) => m.round === 2)} onWinnerSelected={handleWinnerSelected}/>
+        <UserRound matchups={matchups.filter((m) => m.round === 3)} onWinnerSelected={handleWinnerSelected}/>
+        <UserRound matchups={matchups.filter((m) => m.round === 4)} onWinnerSelected={handleWinnerSelected}/>
+        <UserRound matchups={matchups.filter((m) => m.round === 5)} onWinnerSelected={handleWinnerSelected}/>
       </Stack>
     </div>
   }</>;

@@ -8,7 +8,7 @@ export interface IBracket extends IDataModel {
     name: string;
     roundCount: number;
     creatureCount: number;
-    phase: number;
+    phase: string;
     matchups: IMatchup[];
     userMatchups: IUserMatchup[];
     creatures: ICreature[];

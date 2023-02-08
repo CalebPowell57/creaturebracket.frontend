@@ -24,7 +24,7 @@ const BottomBar: FC<BottomBarProps> = () => {
           }}>
             {
               navigationItems
-                .filter((i) => i.bottomNavigation)
+                .filter((i) => i.hasNavigation)
                 .map((i) => <BottomNavigationAction label={`${i.title}`} icon={i.icon} value={`${i.path}`} key={`${i.path}`}/>)
             }
         </BottomNavigation>

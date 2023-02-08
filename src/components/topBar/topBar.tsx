@@ -1,4 +1,4 @@
-import { Paper, AppBar, Toolbar, IconButton, Button, Drawer, Badge, useTheme, Avatar } from '@mui/material';
+import { Paper, AppBar, Toolbar, IconButton, Button, Drawer, Badge, useTheme, Avatar, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Stack } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './topBar.module.css';
@@ -7,16 +7,20 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import axios from 'axios';
-import { BracketState } from '../../state/slices/bracket';
-import { Menu } from '@mui/icons-material';
+import { BracketState, setBracket } from '../../state/slices/bracket';
+import { Add, Menu } from '@mui/icons-material';
+import { BracketsState } from '../../state/slices/brackets';
+import NewBracket from '../newBracket/newBracket';
 
 interface TopBarProps {
 }
 
 const TopBar: FC<TopBarProps> = () => {
+  const [newBracketOpen, setNewBracketOpen] = useState(false);
   const [selectionDrawerOpen, setSelectionDrawerOpen] = useState(false);
 
   const { bracket } = useAppSelector(BracketState);
+  const { brackets } = useAppSelector(BracketsState);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -56,6 +60,32 @@ const TopBar: FC<TopBarProps> = () => {
                 >
                   <CloseIcon />
                 </IconButton>
+                <Paper style={{width: '100%'}}>
+                  <Stack>
+                    <List>
+                      {brackets.map((b) =>
+                        <ListItem disablePadding key={b.id}>
+                          <ListItemButton onClick={() => {
+                            dispatch(setBracket(b))
+                            setSelectionDrawerOpen(false);
+                          }}>
+                            <ListItemText primary={b.name} />
+                          </ListItemButton>
+                        </ListItem>
+                      )}
+                    </List>
+
+                    <Button
+                      style={{marginBottom: '1em'}}
+                      variant='contained'
+                      endIcon={<Add/>}
+                      onClick={() => {
+                        setNewBracketOpen(true);
+                    }}>
+                      New Bracket
+                    </Button>
+                  </Stack>
+                </Paper>
               </div>
             </Drawer>
             <IconButton
@@ -63,13 +93,15 @@ const TopBar: FC<TopBarProps> = () => {
               edge="end"
               color="primary"
               aria-label="menu"
-              onClick={() => navigate(-1)}
+              onClick={() => console.log('profile')}
             >
               <Avatar sx={{bgColor: theme.palette.primary.main}}>CP</Avatar>
             </IconButton>
           </Toolbar>
         </AppBar>
       </Paper>
+
+      <NewBracket open={newBracketOpen} onClose={() => setNewBracketOpen(false)}/>
     </div>
   );
 }
