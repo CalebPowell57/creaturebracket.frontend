@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { BracketState } from '../../state/slices/bracket';
@@ -22,6 +22,12 @@ const Picks: FC<PicksProps> = () => {
     }
   }, [bracket]);
 
+  function handleSave() {
+    axios.post(`userMatchup/calebpowell57/${bracket!.id}`, matchups).then((r) => {
+      console.log('saved!');
+    })
+  }
+
   function handleWinnerSelected(newWinnerId: number, matchupRound: number, matchupRank: number) {
     const matchup = matchups.find((m) => m.round === matchupRound && m.rank === matchupRank);
     const round = matchup!.round + 1;
@@ -44,15 +50,16 @@ const Picks: FC<PicksProps> = () => {
   }
 
   return <>{bracket &&
-    <div style={{display: 'flex', height: '100%', flexDirection: 'column', overflowY: 'auto'}}>
-      <Stack spacing={4} style={{display: 'flex'}} direction='row'>
+    <Stack spacing={2} style={{height: '100%'}}>
+      <Stack spacing={4} style={{display: 'flex', overflowY: 'auto'}} direction='row'>
         <UserRound matchups={matchups.filter((m) => m.round === 1)} onWinnerSelected={handleWinnerSelected}/>
         <UserRound matchups={matchups.filter((m) => m.round === 2)} onWinnerSelected={handleWinnerSelected}/>
         <UserRound matchups={matchups.filter((m) => m.round === 3)} onWinnerSelected={handleWinnerSelected}/>
         <UserRound matchups={matchups.filter((m) => m.round === 4)} onWinnerSelected={handleWinnerSelected}/>
         <UserRound matchups={matchups.filter((m) => m.round === 5)} onWinnerSelected={handleWinnerSelected}/>
       </Stack>
-    </div>
+      <Button variant='contained' onClick={handleSave}>Save</Button>
+    </Stack>
   }</>;
 }
 

@@ -7,6 +7,7 @@ import Picks from "../components/picks/picks";
 import Standings from "../components/standings/standings";
 import CreatureSubmissions from "../components/creatureSubmissions/creatureSubmissions";
 import Tools from "../components/tools/tools";
+import { PHASE } from "./phase";
 
 export const navigationItems: INavigationItem[] = [
 	{
@@ -15,6 +16,7 @@ export const navigationItems: INavigationItem[] = [
 		node: <Home/>,
 		icon: <HomeIcon/>,
 		hasNavigation: true,
+		phasesShown: [PHASE.Seeded],
 	},
 	{
 		path: '/creature-submissions',
@@ -22,6 +24,7 @@ export const navigationItems: INavigationItem[] = [
 		node: <CreatureSubmissions/>,
 		icon: <PersonAdd/>,
 		hasNavigation: true,
+		phasesShown: [PHASE.CreatureSubmission],
 	},
 	{
 		path: '/picks',
@@ -29,6 +32,7 @@ export const navigationItems: INavigationItem[] = [
 		node: <Picks/>,
 		icon: <Rule/>,
 		hasNavigation: true,
+		phasesShown: [PHASE.Seeded],
 	},
 	{
 		path: '/standings',
@@ -36,6 +40,7 @@ export const navigationItems: INavigationItem[] = [
 		node: <Standings/>,
 		icon: <Leaderboard/>,
 		hasNavigation: true,
+		phasesShown: [PHASE.Seeded],
 	},
 	{
 		path: '/tools',

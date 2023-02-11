@@ -1,0 +1,1 @@
+export enum PHASE { CreatureSubmission = 'CreatureSubmission', Seeded = 'Seeded' }
