@@ -21,7 +21,6 @@ const Standings: FC<StandingsProps> = () => {
     if (bracket) {
       axios.get(`bracket/standings/${bracket.id}`).then((r) => {
         setStandings(r.data);
-        console.log(r.data);
       })
     }
   }, [bracket]);

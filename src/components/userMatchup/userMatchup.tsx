@@ -2,6 +2,8 @@ import { Inbox } from '@mui/icons-material';
 import { Paper, List, ListItemButton, ListItemIcon, ListItemText, Avatar } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { IUserMatchup } from '../../interfaces/models/userMatchup';
+import { useAppSelector } from '../../state/hooks';
+import { BracketState } from '../../state/slices/bracket';
 import styles from './matchup.module.css';
 
 interface UserMatchupProps {
@@ -15,6 +17,8 @@ const UserMatchup: FC<UserMatchupProps> = (props) => {
   const [winnerId, setWinnerId] = useState<number | undefined>(undefined);
   const HEIGHT = 96;
   const AVATAR_SIZE = '32px';
+
+  const { bracket } = useAppSelector(BracketState);
 
   useEffect(() => {
     const m = ((16 / props.count) - 1) * HEIGHT / 2;
@@ -31,6 +35,7 @@ const UserMatchup: FC<UserMatchupProps> = (props) => {
     <ListItemButton
       selected={props.matchup.creature1Id !== null && winnerId === props.matchup.creature1Id}
       onClick={() => handleSetWinner(props.matchup.creature1Id as number)}
+      disabled={bracket!.round > 1}
     >
       <ListItemIcon>
         <Avatar sx={{height: AVATAR_SIZE, width: AVATAR_SIZE}}/>
@@ -41,6 +46,7 @@ const UserMatchup: FC<UserMatchupProps> = (props) => {
     <ListItemButton
       selected={props.matchup.creature2Id !== null && winnerId === props.matchup.creature2Id}
       onClick={(e) => handleSetWinner(props.matchup.creature2Id as number)}
+      disabled={bracket!.round > 1}
     >
       <ListItemIcon>
         <Avatar sx={{height: AVATAR_SIZE, width: AVATAR_SIZE}}/>

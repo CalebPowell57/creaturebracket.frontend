@@ -34,6 +34,8 @@ const Picks: FC<PicksProps> = () => {
     const rank = Math.ceil(matchup!.rank / 2);
     const isFirst = (matchup!.rank / 2) % 1 !== 0;
 
+    matchup!.winnerId = newWinnerId;
+
     const newMatchup = matchups.find((m) => m.round === round && m.rank === rank) as IUserMatchup;
 
     if (isFirst) {
@@ -44,7 +46,15 @@ const Picks: FC<PicksProps> = () => {
       newMatchup!.creature2Id = newWinnerId === matchup!.creature1Id ? matchup!.creature1Id : matchup!.creature2Id;
     }
 
-    const newMatchups = matchups.map((m) => m.round === round && m.rank === rank ? newMatchup : m);
+    const newMatchups = matchups.map((m) => {
+      if (m.round === round && m.rank === rank) {
+        return newMatchup;
+      } else if (m.round === matchup!.round && m.rank === matchup!.rank) {
+        return matchup!;
+      } else {
+        return m;
+      }
+    });
 
     setMatchups(newMatchups);
   }
@@ -58,7 +68,8 @@ const Picks: FC<PicksProps> = () => {
         <UserRound matchups={matchups.filter((m) => m.round === 4)} onWinnerSelected={handleWinnerSelected}/>
         <UserRound matchups={matchups.filter((m) => m.round === 5)} onWinnerSelected={handleWinnerSelected}/>
       </Stack>
-      <Button variant='contained' onClick={handleSave}>Save</Button>
+
+      {bracket?.round === 1 && <Button variant='contained' onClick={handleSave}>Save</Button>}
     </Stack>
   }</>;
 }

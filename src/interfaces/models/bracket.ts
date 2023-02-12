@@ -7,7 +7,7 @@ import { PHASE } from "../../constants/phase";
 
 export interface IBracket extends IDataModel {
     name: string;
-    roundCount: number;
+    round: number;
     creatureCount: number;
     phase: PHASE;
     matchups: IMatchup[];
